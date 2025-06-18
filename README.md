@@ -25,9 +25,9 @@
    docker compose up --build
    ```
 
-- Backend will be available at http://localhost:8000
+- Backend will be available at http://localhost:8000/api/
 
-- Frontend will be available at http://localhost:5173
+- Frontend will be available at http://localhost:80
 
 # If needed:
 you can init movies with 

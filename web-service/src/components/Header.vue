@@ -3,7 +3,7 @@
     <h1>SocoMovies</h1>
     <nav>
       <a href="/">Home</a>
-      <a href="/all-movies">All movies</a>
+      <a href="/movies">All movies</a>
     </nav>
   </header>
 </template>

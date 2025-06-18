@@ -10,7 +10,7 @@ const routes = [
     component: HomePage,
   },
   {
-    path: '/all-movies',
+    path: '/movies',
     name: 'movie-list',
     component: MovieListPage,
   },
