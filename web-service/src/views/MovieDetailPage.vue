@@ -15,7 +15,7 @@
           <v-card-title class="d-flex justify-space-between">
             <span>{{ movie.title }}</span>
             <div class="d-flex">
-              <v-btn text small color="primary" @click="editPoster" class="me-2">
+              <v-btn text small color="primary" @click="editMovie" class="me-2">
                 Update Movie
               </v-btn>
               <v-btn text small color="error" @click="deleteMovie"> Delete Movie </v-btn>
@@ -39,9 +39,8 @@
 
           <!-- Reviews -->
           <v-divider />
-          <v-card-subtitle class="mt-4"> Reviews </v-card-subtitle>
           <v-card-actions>
-            <v-btn text small color="primary" @click="createReview"> Add Review </v-btn>
+            <v-btn  variant="outlined" color="primary" @click="createReview"> Add Review </v-btn>
           </v-card-actions>
 
           <v-list two-line>
@@ -63,7 +62,12 @@
               </v-list-item-action>
             </v-list-item>
           </v-list>
-          <ReviewDialogComponent
+          <UpdateMovieDialogComponent
+         v-model:dialog="showUpdateDialog"
+         :movie="movie"
+         @updated="fetchMovie"
+       />
+          <CreateReviewDialogComponent
             v-model:dialog="showReviewDialog"
             :movieId="movie.id"
             :movieTitle="movie.title"
@@ -77,7 +81,8 @@
 
 <script setup>
   import Header from '../components/Header.vue'
-  import ReviewDialogComponent from '../components/ReviewDialogComponent.vue'
+  import CreateReviewDialogComponent from '../components/CreateReviewDialogComponent.vue'
+  import UpdateMovieDialogComponent from '../components/UpdateMovieDialogComponent.vue'
   import { ref, onMounted } from 'vue'
   import { useRouter } from 'vue-router'
 
@@ -88,6 +93,7 @@
   const loading = ref(true)
   const error = ref(null)
   const showReviewDialog = ref(false)
+  const showUpdateDialog = ref(false)
 
   onMounted(fetchMovie)
 
@@ -104,8 +110,9 @@
     }
   }
 
-  function editPoster() {
-    console.log('Edit poster clicked')
+  function editMovie() {
+    console.log('Edit movie clicked')
+    showUpdateDialog.value = true
   }
 
   async function deleteMovie() {

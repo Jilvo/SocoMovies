@@ -40,7 +40,6 @@
   }
 
   async function submit() {
-    console.log(JSON.stringify(newReview.value))
     await fetch(`http://127.0.0.1:8000/api/reviews/`, {
       method: 'POST',
       body: JSON.stringify(newReview.value),

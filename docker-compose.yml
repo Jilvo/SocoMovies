@@ -3,7 +3,7 @@ version: '3.9'
 services:
   backend-service:
     build:
-      context: .
+      context: ./soco-backend-service
       dockerfile: Dockerfile
     container_name: soco-backend-service
     ports:
@@ -22,8 +22,7 @@ services:
       - ./web-service:/app
       - /app/node_modules
     ports:
-      - "8080:5173"
-    command: npm run serve
+      - "5173:5173"
 
 networks:
   default:
