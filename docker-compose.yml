@@ -6,8 +6,6 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: soco-backend-service
-    volumes:
-      - .:/app
     ports:
       - "8000:8000"
     environment:

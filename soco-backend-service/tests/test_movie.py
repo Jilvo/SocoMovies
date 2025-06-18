@@ -1,4 +1,3 @@
-
 from django.urls import reverse
 from movies.models import Actor, Movie, Review
 from rest_framework import status

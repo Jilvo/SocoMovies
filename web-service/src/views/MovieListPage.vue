@@ -6,7 +6,7 @@
       <v-container fluid>
         <v-row class="mb-8" justify="center">
           <v-col cols="12" md="8">
-            <h1 class="text-h4 text-center">Welcome to the Movie App</h1>
+            <h1 class="text-h4 text-center">All Movies</h1>
           </v-col>
         </v-row>
 
@@ -19,8 +19,8 @@
           </v-col>
         </v-row>
 
-        <v-row dense v-if="!loading && !error && pageItems.length">
-          <v-col v-for="item in pageItems" :key="item.id" cols="12" sm="6" md="4" lg="3">
+        <v-row dense v-if="!loading && !error && items.length">
+          <v-col v-for="item in items" :key="item.id" cols="12" sm="6" md="4" lg="3">
             <v-card outlined class="h-100 d-flex flex-column">
               <v-card-title class="text-h6">
                 {{ item.title }}
@@ -37,15 +37,10 @@
           </v-col>
         </v-row>
 
-        <v-row justify="center" v-if="!loading && !error && items.length === 0">
+        <v-row justify="center" v-if="!loading && items.length === 0">
           <v-col cols="12">
-            <v-alert type="info" dense>No elements found.</v-alert>
+            <v-alert type="info" dense>No movies found.</v-alert>
           </v-col>
-        </v-row>
-
-        <v-row justify="center" class="mt-6" v-if="!loading && pagesCount > 1">
-          <v-text>Page {{ currentPage }} / {{ pagesCount }} </v-text>
-          <v-pagination v-model="currentPage" :length="pagesCount" circle />
         </v-row>
       </v-container>
     </v-main>
@@ -54,21 +49,19 @@
 
 <script setup>
   import Header from '../components/Header.vue'
-  import { ref, onMounted, computed } from 'vue'
+  import { ref, onMounted } from 'vue'
 
   const items = ref([])
   const loading = ref(true)
   const error = ref(null)
-  const currentPage = ref(1)
-  const pageSize = 5
 
-  onMounted(fetchMovies)
+  onMounted(fetchAll)
 
-  async function fetchMovies() {
+  async function fetchAll() {
     loading.value = true
     try {
       const res = await fetch('http://localhost:8000/api/movies/')
-      if (!res.ok) throw new Error(`Error ${res.status}`)
+      if (!res.ok) throw new Error(`Erreur ${res.status}`)
       const data = await res.json()
       items.value = Array.isArray(data) ? data : data.results || []
     } catch (e) {
@@ -77,15 +70,6 @@
       loading.value = false
     }
   }
-
-  const pagesCount = computed(() => {
-    return Math.ceil(items.value.length / pageSize)
-  })
-
-  const pageItems = computed(() => {
-    const start = (currentPage.value - 1) * pageSize
-    return items.value.slice(start, start + pageSize)
-  })
 </script>
 
 <style scoped>
