@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  backend-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: soco-backend-service
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      DJANGO_SETTINGS_MODULE: soco_backend_service.settings
+      PYTHONUNBUFFERED: '1'
+    command: poetry run python manage.py runserver 0.0.0.0:8000
+
+  web-service:
+    build:
+      context: ./web-service
+      dockerfile: Dockerfile
+    container_name: soco-frontend
+    volumes:
+      - ./web-service:/app
+      - /app/node_modules
+    ports:
+      - "8080:5173"
+    command: npm run serve
+
+networks:
+  default:
+    name: soco-network
