@@ -1,4 +1,4 @@
-# SocoMovies.io
+# SocoMovies
 
 ## Contents
 
@@ -15,7 +15,7 @@
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Jilvo/SocoMovies.io.git
+   git clone https://github.com/Jilvo/SocoMovies.git
    cd <repository-directory>
    ```
 
