@@ -40,7 +40,7 @@
           <!-- Reviews -->
           <v-divider />
           <v-card-actions>
-            <v-btn  variant="outlined" color="primary" @click="createReview"> Add Review </v-btn>
+            <v-btn variant="outlined" color="primary" @click="createReview"> Add Review </v-btn>
           </v-card-actions>
 
           <v-list two-line>
@@ -63,10 +63,10 @@
             </v-list-item>
           </v-list>
           <UpdateMovieDialogComponent
-         v-model:dialog="showUpdateDialog"
-         :movie="movie"
-         @updated="fetchMovie"
-       />
+            v-model:dialog="showUpdateDialog"
+            :movie="movie"
+            @updated="handleUpdatedMovie"
+          />
           <CreateReviewDialogComponent
             v-model:dialog="showReviewDialog"
             :movieId="movie.id"
@@ -96,7 +96,10 @@
   const showUpdateDialog = ref(false)
 
   onMounted(fetchMovie)
-
+  function handleUpdatedMovie() {
+    showUpdateDialog.value = false
+    fetchMovie()
+  }
   async function fetchMovie() {
     loading.value = true
     try {
