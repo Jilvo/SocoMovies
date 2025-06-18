@@ -21,19 +21,7 @@
 
         <v-row dense v-if="!loading && !error && pageItems.length">
           <v-col v-for="item in pageItems" :key="item.id" cols="12" sm="6" md="4" lg="3">
-            <v-card outlined class="h-100 d-flex flex-column">
-              <v-card-title class="text-h6">
-                {{ item.title }}
-              </v-card-title>
-              <v-card-text class="flex-grow-1">
-                {{ item.description }}
-              </v-card-text>
-              <v-card-actions>
-                <v-btn text small :to="{ name: 'movie-detail', params: { id: item.id } }">
-                  See more
-                </v-btn>
-              </v-card-actions>
-            </v-card>
+            <MovieCardGenericComponent :item="item" />
           </v-col>
         </v-row>
 
@@ -54,6 +42,7 @@
 
 <script setup>
   import Header from '../components/Header.vue'
+  import MovieCardGenericComponent from '../components/MovieCardGenericComponent.vue'
   import { ref, onMounted, computed } from 'vue'
 
   const items = ref([])

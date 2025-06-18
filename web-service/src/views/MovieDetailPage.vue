@@ -41,10 +41,7 @@
           <v-divider />
           <v-card-subtitle class="mt-4"> Reviews </v-card-subtitle>
           <v-card-actions>
-            <v-btn text small color="primary" @click="createReview">
-              <v-icon left size="20">mdi-plus</v-icon>
-              Add Review
-            </v-btn>
+            <v-btn text small color="primary" @click="createReview"> Add Review </v-btn>
           </v-card-actions>
 
           <v-list two-line>
@@ -66,6 +63,12 @@
               </v-list-item-action>
             </v-list-item>
           </v-list>
+          <ReviewDialogComponent
+            v-model:dialog="showReviewDialog"
+            :movieId="movie.id"
+            :movieTitle="movie.title"
+            @submitted="onReviewSubmitted"
+          />
         </v-card>
       </v-container>
     </v-main>
@@ -74,6 +77,7 @@
 
 <script setup>
   import Header from '../components/Header.vue'
+  import ReviewDialogComponent from '../components/ReviewDialogComponent.vue'
   import { ref, onMounted } from 'vue'
   import { useRouter } from 'vue-router'
 
@@ -83,6 +87,7 @@
   const movie = ref(null)
   const loading = ref(true)
   const error = ref(null)
+  const showReviewDialog = ref(false)
 
   onMounted(fetchMovie)
 
@@ -101,7 +106,6 @@
 
   function editPoster() {
     console.log('Edit poster clicked')
-
   }
 
   async function deleteMovie() {
@@ -113,6 +117,7 @@
 
   function createReview() {
     console.log('Create review clicked')
+    showReviewDialog.value = true
   }
 
   async function deleteReview(reviewId) {
