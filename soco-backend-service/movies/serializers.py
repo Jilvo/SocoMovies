@@ -19,10 +19,11 @@ class ReviewSerializer(serializers.ModelSerializer):
 class MovieSerializer(serializers.ModelSerializer):
     actors = ActorSerializer(many=True)
     reviews = ReviewSerializer(many=True, read_only=True)
+    average_rating = serializers.SerializerMethodField()
 
     class Meta:
         model = Movie
-        fields = ("id", "title", "description", "actors", "reviews")
+        fields = ("id", "title", "description", "actors", "reviews", "average_rating")
 
     def create(self, validated_data):
         actors_data = validated_data.pop("actors", [])
@@ -31,6 +32,10 @@ class MovieSerializer(serializers.ModelSerializer):
             obj, _ = Actor.objects.get_or_create(**actor)
             movie.actors.add(obj)
         return movie
+
+    def get_average_rating(self, obj):
+        avg = obj.reviews.aggregate(avg_rating=Avg("rating"))["avg_rating"]
+        return round(avg, 2) if avg is not None else None
 
     def update(self, instance, validated_data):
         actors_data = validated_data.pop("actors", None)
