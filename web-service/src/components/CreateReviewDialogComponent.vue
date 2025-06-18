@@ -23,7 +23,7 @@
   const props = defineProps({
     dialog: { type: Boolean, required: true },
     movieTitle: { type: String, required: true },
-    movieId: { type: String, required: true },
+    movieId: { type: Number, required: true },
   })
 
   const dialog = ref(props.dialog)

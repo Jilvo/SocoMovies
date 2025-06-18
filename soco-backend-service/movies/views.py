@@ -6,7 +6,9 @@ from .serializers import (ActorSerializer, MovieReadSerializer,
 
 
 class MovieViewSet(viewsets.ModelViewSet):
-    queryset = Movie.objects.all()
+    """ViewSet for managing movies with actors."""
+
+    queryset = Movie.objects.all().order_by("id")
 
     def get_serializer_class(self):
         if self.action in ["list", "retrieve"]:
@@ -15,10 +17,14 @@ class MovieViewSet(viewsets.ModelViewSet):
 
 
 class ReviewViewSet(viewsets.ModelViewSet):
-    queryset = Review.objects.all()
+    """ViewSet for managing reviews of movies."""
+
+    queryset = Review.objects.all().order_by("id")
     serializer_class = ReviewSerializer
 
 
 class ActorViewSet(viewsets.ModelViewSet):
+    """ViewSet for managing actors in movies."""
+
     queryset = Actor.objects.all()
     serializer_class = ActorSerializer

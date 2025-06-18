@@ -38,23 +38,12 @@ class MovieAPITestCase(APITestCase):
         self.assertIn("actors", data)
 
     def test_create_movie_with_actors_by_id(self):
-        """Test creating a movie with actors."""
+        """Test creating a movie with actors by ID."""
         url = reverse("movie-list")
         payload = {
             "title": "New Movie",
             "description": "Created via API",
-            "actors": [
-                {
-                    "id": self.actor1.id,
-                    "first_name": self.actor1.first_name,
-                    "last_name": self.actor1.last_name,
-                },
-                {
-                    "id": self.actor2.id,
-                    "first_name": self.actor2.first_name,
-                    "last_name": self.actor2.last_name,
-                },
-            ],
+            "actors": [1, 2],
         }
         response = self.client.post(url, data=payload, format="json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -64,16 +53,12 @@ class MovieAPITestCase(APITestCase):
         self.assertCountEqual(actor_ids, payload["actors"])
 
     def test_update_movie_actors(self):
-        """Test updating movie actors."""
+        """Test updating movie actors by ID."""
         url = reverse("movie-detail", args=[self.movie.id])
         new_actor = Actor.objects.create(first_name="Alice", last_name="Wonder")
         payload = {
             "actors": [
-                {
-                    "id": new_actor.id,
-                    "first_name": new_actor.first_name,
-                    "last_name": new_actor.last_name,
-                }
+                new_actor.id,
             ]
         }
         response = self.client.patch(url, data=payload, format="json")

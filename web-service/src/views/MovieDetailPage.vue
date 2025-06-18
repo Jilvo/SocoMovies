@@ -112,7 +112,10 @@
       loading.value = false
     }
   }
-
+  function onReviewSubmitted() {
+    showReviewDialog.value = false
+    fetchMovie()
+  }
   function editMovie() {
     console.log('Edit movie clicked')
     showUpdateDialog.value = true

@@ -29,6 +29,10 @@
 
 - Frontend will be available at http://localhost:80
 
+3. Run tests:
+   ```bash
+   cd soco-backend-service && poetry run pytest
+   ```
 # If needed:
 you can init movies with 
    ```bash
