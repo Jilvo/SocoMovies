@@ -29,10 +29,9 @@ class MovieReadSerializer(serializers.ModelSerializer):
         avg = obj.reviews.aggregate(avg_rating=Avg("rating"))["avg_rating"]
         return round(avg, 2) if avg is not None else None
 
+
 class MovieWriteSerializer(serializers.ModelSerializer):
-    actors = serializers.PrimaryKeyRelatedField(
-        many=True, queryset=Actor.objects.all()
-    )
+    actors = serializers.PrimaryKeyRelatedField(many=True, queryset=Actor.objects.all())
 
     class Meta:
         model = Movie

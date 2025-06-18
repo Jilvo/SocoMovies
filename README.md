@@ -19,22 +19,18 @@
    cd <repository-directory>
    ```
 
-Project use Poetry
-back-end :
-poetry run python manage.py runserver
+2. From the root of the project (where `docker-compose.yml` is located), run:
 
+   ```bash
+   docker compose up --build
+   ```
 
-docker build -t soco-backend-service .
+- Backend will be available at http://localhost:8000
 
+- Frontend will be available at http://localhost:5173
 
-just doc
-
-
-for dockerfile 
-
-➜  soco-backend-service git:(main) ✗ poetry env info --path
-
-/home/jilvo/soco_movies.io/SocoMovies.io/soco-backend-service/.venv
-➜  soco-backend-service git:(main) ✗ source $(poetry env info --path)/bin/activate
-
-(soco-backend-service-py3.12) ➜  soco-backend-service git:(main) ✗ python manage.py runserver
+# If needed:
+you can init movies with 
+   ```bash
+   poetry run python manage.py init_db
+   ```

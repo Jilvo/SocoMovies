@@ -17,7 +17,7 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import include, path
-from movies.views import MovieViewSet, ReviewViewSet, ActorViewSet
+from movies.views import ActorViewSet, MovieViewSet, ReviewViewSet
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()

@@ -1,11 +1,9 @@
-# Place this file in movies/management/commands/init_db.py
-from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 from movies.models import Actor, Movie, Review
 
 
 class Command(BaseCommand):
-    help = "Create a superuser and populate the database with sample data."
+    help = "Populate the database with sample data."
 
     def handle(self, *args, **options):
 

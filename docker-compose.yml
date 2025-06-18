@@ -9,7 +9,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      DJANGO_SETTINGS_MODULE: soco_backend_service.settings
+      DJANGO_SETTINGS_MODULE: backend.settings
       PYTHONUNBUFFERED: '1'
     command: poetry run python manage.py runserver 0.0.0.0:8000
 
@@ -23,6 +23,8 @@ services:
       - /app/node_modules
     ports:
       - "5173:5173"
+    depends_on:
+      - backend-service
 
 networks:
   default:
